@@ -33,7 +33,7 @@ export const Pagination = ({
     <>
       <ul className="pagination">
         <li
-          className={`${currentPage === 1 || numPages === 0 ? 'li.disabled' : ''}`}
+          className={`${currentPage === 1 || numPages === 0 ? 'disabled' : ''}`}
         >
           <a
             data-cy="prevLink"
@@ -56,7 +56,7 @@ export const Pagination = ({
           return (
             <li
               key={page}
-              className={`${page === currentPage ? 'li.active' : ''}`}
+              className={`${page === currentPage ? 'active' : ''}`}
             >
               <a
                 data-cy="pageLink"
@@ -74,7 +74,7 @@ export const Pagination = ({
           );
         })}
         <li
-          className={`${currentPage === numPages || numPages === 0 ? 'li.disabled' : ''}`}
+          className={`${currentPage === numPages || numPages === 0 ? 'disabled' : ''}`}
         >
           <a
             data-cy="nextLink"
