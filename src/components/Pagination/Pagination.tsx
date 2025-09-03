@@ -33,7 +33,7 @@ export const Pagination = ({
     <>
       <ul className="pagination">
         <li
-          className={`page-item ${currentPage === 1 || numPages === 0 ? 'disabled' : ''}`}
+          className={`${currentPage === 1 || numPages === 0 ? 'li.disabled' : ''}`}
         >
           <a
             data-cy="prevLink"
@@ -56,7 +56,7 @@ export const Pagination = ({
           return (
             <li
               key={page}
-              className={`list-item ${page === currentPage ? 'active' : ''}`}
+              className={`${page === currentPage ? 'li.active' : ''}`}
             >
               <a
                 data-cy="pageLink"
@@ -74,7 +74,7 @@ export const Pagination = ({
           );
         })}
         <li
-          className={`${currentPage === numPages || numPages === 0 ? 'disabled' : ''}`}
+          className={`${currentPage === numPages || numPages === 0 ? 'li.disabled' : ''}`}
         >
           <a
             data-cy="nextLink"
@@ -85,7 +85,7 @@ export const Pagination = ({
             }
             onClick={event => {
               event.preventDefault();
-              if (currentPage < numPages){
+              if (currentPage < numPages) {
                 onPageChange(currentPage + 1);
               }
             }}
