@@ -23,7 +23,7 @@ export const Pagination = ({
 
   for (
     let i = (currentPage - 1) * perPage + 1;
-    i <= currentPage * perPage && i <= total;
+    i <= Math.min(currentPage * perPage, total);
     i++
   ) {
     items.push({ id: i, text: `Item ${i}` });
@@ -40,7 +40,10 @@ export const Pagination = ({
             className="page-link"
             href="#prev"
             aria-disabled={currentPage === 1 || numPages === 0}
-            onClick={() => onPageChange(currentPage - 1)}
+            onClick={event => {
+              event.preventDefault();
+              onPageChange(currentPage - 1);
+            }}
           >
             «
           </a>
@@ -51,7 +54,7 @@ export const Pagination = ({
           return (
             <li
               key={page}
-              className={isActive ? 'page-item li.active' : 'page-item'}
+              className={`page-item ${isActive ? 'li.active' : ''}`}
             >
               <a
                 data-cy="pageLink"
@@ -76,7 +79,10 @@ export const Pagination = ({
             className="page-link"
             href="#next"
             aria-disabled={currentPage === numPages || numPages === 0}
-            onClick={() => onPageChange(currentPage + 1)}
+            onClick={event => {
+              event.preventDefault();
+              onPageChange(currentPage + 1);
+            }}
           >
             »
           </a>

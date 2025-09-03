@@ -7,7 +7,7 @@ import { Pagination } from './components/Pagination';
 const items = getNumbers(1, 42).map(n => `Item ${n}`);
 
 export const App: React.FC = () => {
-  const [itemPerPageCount, setItemPerPageCount] = useState(3);
+  const [perPage, setPerPage] = useState(5);
   const [currentPage, setCurrentPage] = useState(1);
 
   const handlePageChange = (page: number) => {
@@ -17,9 +17,13 @@ export const App: React.FC = () => {
   const handlePerPageSelectorChange = (
     event: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    setItemPerPageCount(parseInt(event.target.value));
+    setPerPage(parseInt(event.target.value));
     handlePageChange(1);
   };
+
+  const start = items.length === 0 ? 0 : (currentPage - 1) * perPage + 1;
+  const end =
+    items.length === 0 ? 0 : Math.min(currentPage * perPage, items.length);
 
   return (
     <div className="container">
@@ -27,8 +31,7 @@ export const App: React.FC = () => {
 
       <p className="lead" data-cy="info">
         {/* eslint-disable-next-line max-len*/}
-        Page {currentPage} (items {(currentPage - 1) * itemPerPageCount + 1} -{' '}
-        {currentPage * itemPerPageCount} of {items.length})
+        Page {currentPage} (items {start} - {end} of {items.length})
       </p>
 
       <div className="form-group row">
@@ -37,7 +40,7 @@ export const App: React.FC = () => {
             data-cy="perPageSelector"
             id="perPageSelector"
             className="form-control"
-            value={itemPerPageCount}
+            value={perPage}
             onChange={handlePerPageSelectorChange}
           >
             <option value="3">3</option>
@@ -53,7 +56,7 @@ export const App: React.FC = () => {
       </div>
       <Pagination
         total={items.length}
-        perPage={itemPerPageCount}
+        perPage={perPage}
         currentPage={currentPage}
         onPageChange={handlePageChange}
       />
