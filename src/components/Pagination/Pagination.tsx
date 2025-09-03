@@ -39,29 +39,31 @@ export const Pagination = ({
             data-cy="prevLink"
             className="page-link"
             href="#prev"
-            aria-disabled={currentPage === 1 || numPages === 0}
+            aria-disabled={
+              currentPage === 1 || numPages === 0 ? 'true' : 'false'
+            }
             onClick={event => {
               event.preventDefault();
-              onPageChange(currentPage - 1);
+              if (currentPage > 1) {
+                onPageChange(currentPage - 1);
+              }
             }}
           >
             «
           </a>
         </li>
         {pages.map(page => {
-          const isActive = page === currentPage;
-
           return (
             <li
               key={page}
-              className={`page-item ${isActive ? 'li.active' : ''}`}
+              className={`list-item ${page === currentPage ? 'active' : ''}`}
             >
               <a
                 data-cy="pageLink"
                 className="page-link"
                 href={`#${page}`}
                 onClick={() => {
-                  if (page !== currentPage) {
+                  if (page !== currentPage && page >= 1 && page <= numPages) {
                     onPageChange(page);
                   }
                 }}
@@ -72,16 +74,20 @@ export const Pagination = ({
           );
         })}
         <li
-          className={`page-item ${currentPage === numPages || numPages === 0 ? 'disabled' : ''}`}
+          className={`${currentPage === numPages || numPages === 0 ? 'disabled' : ''}`}
         >
           <a
             data-cy="nextLink"
             className="page-link"
             href="#next"
-            aria-disabled={currentPage === numPages || numPages === 0}
+            aria-disabled={
+              currentPage === numPages || numPages === 0 ? 'true' : 'false'
+            }
             onClick={event => {
               event.preventDefault();
-              onPageChange(currentPage + 1);
+              if (currentPage < numPages){
+                onPageChange(currentPage + 1);
+              }
             }}
           >
             »
